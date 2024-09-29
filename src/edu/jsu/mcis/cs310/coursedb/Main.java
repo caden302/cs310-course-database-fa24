@@ -14,10 +14,10 @@ public class Main {
         
         DAOFactory daoFactory = new DAOFactory("coursedb");
         
-        RegistrationDAO registrationDao = daoFactory.getRegistrationDAO();
+        //RegistrationDAO registrationDao = daoFactory.getRegistrationDAO();
         SectionDAO sectionDao = daoFactory.getSectionDAO();
         
-        int studentid = daoFactory.getStudentDAO().find(USERNAME);
+        //int studentid = daoFactory.getStudentDAO().find(USERNAME);
         
         // Test Connection
         
@@ -26,6 +26,7 @@ public class Main {
             System.out.println("Connected Successfully!");
             
         }
+        System.out.println(sectionDao.find(1, "ACC", "200"));
         
     }
     
