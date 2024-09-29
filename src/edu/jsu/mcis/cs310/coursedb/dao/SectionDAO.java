@@ -53,6 +53,4 @@ public class SectionDAO {
         return result;
         
     }
-
-    
 }

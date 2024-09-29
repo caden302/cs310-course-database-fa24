@@ -27,7 +27,23 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                ps = conn.prepareStatement("INSERT INTO registration (studentid, termid, crn) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                ps.setInt(3, crn);
+                
+                int updateCount = ps.executeUpdate();
+                
+                if (updateCount > 0) {
+            
+                    rs = ps.getGeneratedKeys();
+
+                    if (rs.next()) {
+                        int temp = rs.getInt(1);
+                        System.out.println(temp);
+                    }
+                    result = true;
+                }
                 
             }
             
@@ -58,7 +74,13 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                ps = conn.prepareStatement("DELETE FROM registration WHERE studentid=? AND termid=? AND crn=?");
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                ps.setInt(3, crn);
+                int rowsAffected = ps.executeUpdate();
+                System.out.println(rowsAffected);
+                result = true;
                 
             }
             
@@ -88,7 +110,12 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                ps = conn.prepareStatement("DELETE FROM registration WHERE studentid=? AND termid=?");
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                int rowsAffected = ps.executeUpdate();
+                System.out.println(rowsAffected);
+                result = true;
                 
             }
             
@@ -120,10 +147,20 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
-                
+                final String QUERYFIND = "SELECT * FROM registration WHERE studentid = ? AND termid = ? ORDER BY crn";
+
+
+                if (conn.isValid(0)) {
+                    ps = conn.prepareStatement(QUERYFIND);
+                    ps.setInt(1, studentid);
+                    ps.setInt(2, termid);
+
+                    rs = ps.executeQuery();
+                    
+                    result = DAOUtility.getResultSetAsJson(rs);
+
+                }    
             }
-            
         }
         
         catch (Exception e) { e.printStackTrace(); }

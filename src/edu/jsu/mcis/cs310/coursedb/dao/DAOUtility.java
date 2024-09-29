@@ -17,26 +17,18 @@ public class DAOUtility {
             if (rs != null) {
                 
                 ResultSetMetaData rsmd = rs.getMetaData();
-                
                 int column = rsmd.getColumnCount();
                 
-                JsonObject temp = new JsonObject();
-                if(rs.next()){
+                while(rs.next()){
+                    JsonObject temp = new JsonObject();
                     for(int x = 1; x <= column; x++){
                         String columnName = rsmd.getColumnName(x);
                         String value = rs.getString(x);
                         temp.put(columnName, value);
                     }
-                    /*String sectionTemp = rs.getString("section");
-                    System.out.println(sectionTemp);
-                    String numTemp = rs.getString("num");
-                    System.out.println(numTemp);
-                    String columnTemp = rs.getString("subjectid");
-                    System.out.println(columnTemp);*/
-                }else{
-                    System.out.println("No rows found");
+                    records.add(temp);
                 }
-                records.add(temp);
+                
                 
             }
             
